@@ -1,0 +1,20 @@
+{% extends 'Base.html' %}
+{% load staticfiles %}
+{% block title %}AudioPlayer{% endblock %}
+{% block body %}
+    {% include "add_track_modal.html" %}
+    	<H1 class = "text2deg"><strong>Tracks:</strong></H1>
+		<div class="row">
+			<div  class="col-lg-6">
+                {% for element in songs.list1 %}
+                        {% include 'Media.html' %}
+                {% endfor %}
+            </div>
+			<div  class="col-lg-6">
+                {% for element in songs.list2 %}
+                    {% include 'Media.html' %}
+                {% endfor %}
+			</div>
+
+		</div>
+{% endblock %}

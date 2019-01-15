@@ -1,0 +1,11 @@
+Django==2.1.4
+eyeD3==0.8.8
+libmagic==1.0
+MAD==0.2.2
+pathlib==1.0.1
+Pillow==5.4.1
+psycopg2==2.7.6.1
+python-magic==0.4.15
+python-magic-bin==0.4.14
+pytz==2018.7
+six==1.12.0

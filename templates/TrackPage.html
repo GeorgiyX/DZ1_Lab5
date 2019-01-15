@@ -1,0 +1,36 @@
+{% extends 'Base.html' %}
+{% load staticfiles %}
+{% block title %}About {{info.0}}{% endblock %}
+{% block body %}
+    	<div style="padding-top: 10px"> <H1 class = "text2deg"><strong>{{info.0}}</strong></H1>
+            </div>
+        <div style="color: #98C4E7; margin-left: 20px; padding-top: 6px;">
+            {% if info.5 == 'None' %}
+            {% else %}
+                <img style="border: 3px dashed #7D4A96" src="{% static  ""%}{{info.5}}">
+            {% endif %}
+            <P>Artist: {{ info.1 }}</P>
+            <P>Song: {{ info.0 }}</P>
+
+            <p>Album:
+                {% if info.2 == '' %}
+                    Нет данных об альбоме
+                {% else %}
+                    {{ info.2 }}
+                {% endif %}
+                </P>
+            <P>Genre: {{ info.3 }}</P>
+            <p>Track year: {{ info.4 }}</P>
+            <p><audio controls style="border: 4px dashed #7D4A96; border-radius: 26px"><source src="{% static  ""%}{{info.6}}"  type="audio/mp3"></audio></P>
+            <form  method="post">
+					{% csrf_token %}
+					<table>
+						{{ form }}
+					</table>
+					<div class="modal-footer">
+						<input class="btn btn-primary" type="submit" value="Зарегистрироваться" >
+					</div>
+                </form>
+        </div>
+
+{% endblock %}
