@@ -35,6 +35,13 @@ body{
 	padding-left: 35px;
 	font-family: Impact, sans-serif;
 }
+.text2{
+	color: #7D4A96;
+	transform: rotate(-1deg);
+	padding-bottom:  14px;
+	padding-left: 35px;
+	font-family: Impact, sans-serif;
+}
 .text_center{
   position: absolute;
   left: 20px;
@@ -68,4 +75,14 @@ body{
 }
 .errorlist{
 	border: 3px dashed red;
+}
+.Head{
+	font-family: Impact, sans-serif;
+	font-size: 27px;
+	color: #98C4E7;
+}
+textarea	{
+	border: 3px dashed #8E29A7;
+	border-radius: 18px;
+	height: 65px;
 }

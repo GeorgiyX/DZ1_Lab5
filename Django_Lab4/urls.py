@@ -23,10 +23,14 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # path('', TemplateView.as_view(template_name='index_final.html', extra_context=FilesList.Get2ListOfFile())), стрый обработчик index
     path('', views.IndexPage.as_view()),
+    path('<int:page>', views.IndexPage.as_view()),
     path('About', TemplateView.as_view(template_name='About.html')),
     path('registration', views.Registration.as_view()),
     path('login', views.LogIn.as_view()),
     path('logout', views.LogOut.as_view()),
+    path('PlayList', views.Playlist.as_view()),
+    path('account', views.update_profile),
+    re_path(r'^music/(?P<artist>.{1,50})/(?P<song>.{1,50})/like', views.TrackLike.as_view()),
     re_path(r'^music/(?P<artist>.{1,50})/(?P<song>.{1,50})', views.TrackPage.as_view()),
     re_path(r'^', TemplateView.as_view(template_name='404.html')),
 ]

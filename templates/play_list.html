@@ -1,0 +1,22 @@
+{% extends 'Base.html' %}
+{% load staticfiles %}
+{% block title %}AudioPlayer{% endblock %}
+{% block body %}
+    	<H1 class = "text2deg"><strong>Ваш Play List:</strong></H1>
+		<div class="row">
+        {% if list1|length == 0 %}
+            <H1 class = "text2deg" style="font-size: 20px; margin-top: 20px; margin-left: 30px">Пока play list пуст.</H1>
+        {% endif %}
+			<div  class="col-lg-6">
+                {% for element in list1 %}
+                        {% include 'Media_on_model.html' %}
+                {% endfor %}
+            </div>
+			<div  class="col-lg-6">
+                {% for element in list2 %}
+                    {% include 'Media_on_model.html' %}
+                {% endfor %}
+			</div>
+
+		</div>
+{% endblock %}

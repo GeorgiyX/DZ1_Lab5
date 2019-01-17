@@ -1,0 +1,14 @@
+{% load staticfiles %}
+<div class="music">
+    <a href="music/{{ element.artist }}/{{ element.song_name }}">{{ element.artist }} - {{ element.song_name }}</a><br>
+    <table>
+        <tr>
+            <td>
+                <img style="border: 3px dashed #7D4A96" width="65" height="65" src="{% static  ""%}{{element.album_picture}}">
+            </td>
+            <td>
+                <audio controls><source src="{% static  ""%}{{element.song_file}}"  type="audio/mp3"></audio>
+            </td>
+        </tr>
+    </table>
+</div>

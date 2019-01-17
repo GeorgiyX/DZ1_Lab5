@@ -1,6 +1,9 @@
 from django.db import models
 import psycopg2
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+import math
 
 
 # Create your models here.
@@ -14,11 +17,33 @@ class Tracks(models.Model):
     song_file = models.TextField()
     likes = models.ManyToManyField(User)
 
+    def __str__(self):
+        return "Track: %s, %s, %s" % (self.song_name, self.artist, self.genre)
+
+    class Meta:
+        verbose_name = 'Track'
+        verbose_name_plural = 'Tracks'
+
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     avatar = models.ImageField(upload_to='static/Saved_Media/Avatar')
     play_lists = models.ManyToManyField(Tracks)
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    location = models.CharField(max_length=30, blank=True)
+    birth_date = models.DateField(null=True, blank=True)
+    avatar = models.ImageField(upload_to='static/Saved_Media/Avatar')
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
 
 
 class SongComment(models.Model):
@@ -110,8 +135,21 @@ def Save_file(file, name):
         for chunk in file.chunks():
             dest.write(chunk)
 
-
-# #Test
+def paginator_for_2list(diction, on_page=5, page=1):
+    total_el = max(len(diction['list1']), len(diction['list2']))
+    total_page = list(range(1, math.ceil(total_el / on_page) + 1))
+    final_dict = {}
+    if page in total_page:
+        if page*on_page <= len(diction['list1']):
+            final_dict['list1'] = diction['list1'][page*on_page-on_page:page*on_page]
+        else:
+            final_dict['list1'] = diction['list1'][(len(diction['list1']) // on_page)*on_page :len(diction['list1']) + 1]
+        if page*on_page <= len(diction['list2']):
+            final_dict['list2'] = diction['list2'][page*on_page-on_page:page*on_page]
+        else:
+            final_dict['list2'] = diction['list2'][(len(diction['list2']) // on_page)*on_page :len(diction['list2']) + 1]
+    return total_page, page, final_dict
+#Test
 # con = Connection()
 # with con:
 #     track = Tracks_cls(con)
@@ -120,4 +158,4 @@ def Save_file(file, name):
 #     print(track.get_all())
 #     # print(track.get_one_record('This is the life','Amy Macdonald'))
 #     print (GetTrackInfo('This is the life','Amy Macdonald'))
-# #End Test
+#End Test

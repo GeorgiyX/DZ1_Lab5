@@ -1,4 +1,5 @@
 from django import forms
+from .models import SongComment, Profile
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
@@ -11,6 +12,12 @@ class AddTrackForm(forms.Form):
     file = forms.FileField(label='Файл')
     album_pic = forms.ImageField(label='Картинка альбома', required=False)
 
+class Comment(forms.ModelForm):
+    class Meta:
+        model = SongComment
+        fields = ['comment']
+
+
 
 class UserCreate(UserCreationForm):
     first_name = forms.CharField(label='Имя')
@@ -21,7 +28,7 @@ class UserCreate(UserCreationForm):
 
     class Meta:
         model = User
-        fields = {'username', 'first_name','last_name', 'email', 'password1', 'password2'}
+        fields = ['username', 'first_name','last_name', 'email', 'password1', 'password2']
 
     def save(self, commit=True):
         user = super(UserCreate, self).save(commit = False)
@@ -31,3 +38,14 @@ class UserCreate(UserCreationForm):
         if commit:
             user.save()
         return user
+
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'email')
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('location', 'avatar', 'birth_date')
