@@ -58,7 +58,8 @@ class SongComment(models.Model):
 #Классы предметной области
 class Connection:
     '''Класс для работы с подключением'''
-    def __init__(self,*, dbname='Music_db', user='postgres', password='Zc%ys%aiGhgl4rve', host='localhost' ):#!!!
+    def __init__(self,*, dbname='music_database', user='SimpleUser', password='1524SU', host='localhost' ):#!!!    def __init__(self,*, dbname='Music_db', user='postgres', password='Zc%ys%aiGhgl4rve', host='localhost' ):#!!!
+
         self.dbname = dbname
         self.user = user
         self.password = password
@@ -131,7 +132,7 @@ def GetTrackInfo(song, artist):
         return list
 
 def Save_file(file, name):
-    with open('G:\Prog\Python\Files\Django_Lab5\static\{}'.format(name), 'wb+') as dest:
+    with open('/webapps/my_site/dz/static/{}'.format(name), 'wb+') as dest:
         for chunk in file.chunks():
             dest.write(chunk)
 
